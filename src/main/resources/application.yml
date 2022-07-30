@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: inventory-service
+
+  datasource:
+    driver-class-name: org.h2.Driver
+  jpa:
+    generate-ddl: true
+    database: H2
+    show-sql: true
+
+server:
+  port: 5000
