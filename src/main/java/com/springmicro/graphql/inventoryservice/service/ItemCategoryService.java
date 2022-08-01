@@ -27,21 +27,29 @@ public record ItemCategoryService(
     }
 
     public ItemCategoryDTO saveItemCategory(ItemCategoryDTO itemCategoryDTO) {
+        var itemCategory = itemCategoryMapper.toItemCategory(itemCategoryDTO);
+        itemCategory.setId(itemCategoryRepository.findMaxId() + 1);
+        itemCategory.setName(itemCategory.getName().toUpperCase());
         return itemCategoryMapper.toItemCategoryDTO(
-                itemCategoryRepository.save(
-                        itemCategoryMapper.toItemCategory(itemCategoryDTO)
-                )
+                itemCategoryRepository.save(itemCategory)
         );
     }
 
-    public void updateItemCategory(ItemCategoryDTO itemCategoryDTO, Long id) {
+    public ItemCategoryDTO updateItemCategory(ItemCategoryDTO itemCategoryDTO, Long id) {
         var itemCategory = findItemCategoryById(id);
-        itemCategory.setName(itemCategoryDTO.name());
-        itemCategoryRepository.save(itemCategory);
+        itemCategory.setName(itemCategoryDTO.name().toUpperCase());
+        return itemCategoryMapper.toItemCategoryDTO(
+                itemCategoryRepository.save(itemCategory)
+        );
     }
 
     private ItemCategory findItemCategoryById(Long id) {
         return itemCategoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item Category not found with id: " + id));
+    }
+
+    public ItemCategory findItemCategoryByName(String name) {
+        return itemCategoryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Item Category not found with name: " + name));
     }
 }

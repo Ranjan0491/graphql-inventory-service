@@ -13,10 +13,11 @@ import javax.persistence.*;
 @Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ItemCategory category;
     private String name;
+    private Integer quantity;
     private Double price;
 }

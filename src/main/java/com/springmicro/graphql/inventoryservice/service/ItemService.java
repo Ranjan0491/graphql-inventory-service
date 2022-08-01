@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public record ItemService(
         ItemRepository itemRepository,
+        ItemCategoryService itemCategoryService,
         ItemMapper itemMapper
 ) {
 
@@ -28,23 +29,39 @@ public record ItemService(
     }
 
     public ItemDTO saveItem(ItemDTO itemDTO) {
+        var itemCategory = itemCategoryService.findItemCategoryByName(itemDTO.category().name());
+        var item = itemMapper.toItem(itemDTO);
+        item.setId(itemRepository.findMaxId() + 1);
+        item.setCategory(itemCategory);
         return itemMapper.toItemDTO(
-                itemRepository.save(
-                        itemMapper.toItem(itemDTO)
-                )
+                itemRepository.save(item)
         );
     }
 
-    public void updateItem(ItemDTO itemDTO, Long id) {
-        Item item = fetchItemById(id);
-        item.setCategory(new ItemCategory(itemDTO.category().id(), itemDTO.category().name()));
+    public ItemDTO updateItem(ItemDTO itemDTO, Long id) {
+        var itemCategory = itemCategoryService.findItemCategoryByName(itemDTO.category().name());
+        var item = fetchItemById(id);
+        item.setCategory(itemCategory);
         item.setName(itemDTO.name());
         item.setPrice(itemDTO.price());
-        itemRepository.save(item);
+        return itemMapper.toItemDTO(itemRepository.save(item));
+    }
+
+    public List<ItemDTO> getAllItemsByCategoryId(Long categoryId) {
+        return itemRepository.getItemsByCategory(new ItemCategory(categoryId, null))
+                .stream().map(itemMapper::toItemDTO)
+                .collect(Collectors.toList());
     }
 
     private Item fetchItemById(Long id) {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+    }
+
+    public List<ItemDTO> getAllItemsByCategoryName(String categoryName) {
+        var itemCategory = itemCategoryService.findItemCategoryByName(categoryName);
+        return itemRepository.getItemsByCategory(itemCategory)
+                .stream().map(itemMapper::toItemDTO)
+                .collect(Collectors.toList());
     }
 }

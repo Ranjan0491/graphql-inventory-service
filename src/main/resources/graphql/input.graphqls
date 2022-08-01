@@ -1,0 +1,10 @@
+input ItemInput {
+    category: ItemCategoryInput!
+    name: String!
+    quantity: Int!
+    price: Float!
+}
+
+input ItemCategoryInput {
+    name: String!
+}

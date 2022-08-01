@@ -1,16 +1,21 @@
 type Query {
+# Item Queries
     getItems: [Item]
-    getItemById(id: ID): Item
+    getItemById(id: ID!): Item
+    getItemsByCategoryId(categoryId: ID!): [Item]
+    getItemsByCategoryName(categoryName: String!): [Item]
+
+# Item Category Queries
+    getAllItemCategories: [ItemCategory]
+    getItemCategoryById(id: ID!): ItemCategory
 }
 
-type Item {
-    id: ID
-    category: ItemCategory!
-    name: String!
-    price: Float!
-}
+type Mutation {
+# Item Mutations
+    saveItem(item: ItemInput!): Item!
+    updateItem(item: ItemInput!, id: ID!): Item!
 
-type ItemCategory {
-    id: ID
-    name: String!
+# Item Category Mutations
+    saveItemCategory(category: ItemCategoryInput!): ItemCategory!
+    updateItemCategory(category: ItemCategoryInput!, id: ID!): ItemCategory!
 }
