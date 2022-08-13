@@ -12,8 +12,7 @@ import java.util.List;
 
 @Controller
 public record ItemCategoryController (
-        ItemCategoryService itemCategoryService
-) {
+        ItemCategoryService itemCategoryService) {
 
     @QueryMapping
     public List<ItemCategoryDTO> getAllItemCategories() {

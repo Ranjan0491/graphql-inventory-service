@@ -12,8 +12,7 @@ import java.util.List;
 
 @Controller
 public record ItemController (
-        ItemService itemService
-) {
+        ItemService itemService) {
 
     @QueryMapping
     public List<ItemDTO> getItems() {

@@ -8,5 +8,4 @@ public record ItemDTO (
      @NotNull ItemCategoryDTO category,
      @NotNull String name,
      @NotNull Integer quantity,
-     @NotNull @Positive Double price
-) {}
+     @NotNull @Positive Double price) {}

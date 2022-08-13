@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 public record ItemService(
         ItemRepository itemRepository,
         ItemCategoryService itemCategoryService,
-        ItemMapper itemMapper
-) {
+        ItemMapper itemMapper) {
 
     public List<ItemDTO> getAllItems() {
         return itemRepository.findAll().stream()

@@ -4,5 +4,4 @@ import javax.validation.constraints.NotNull;
 
 public record ItemCategoryDTO (
         Long id,
-        @NotNull String name
-) {}
+        @NotNull String name) {}

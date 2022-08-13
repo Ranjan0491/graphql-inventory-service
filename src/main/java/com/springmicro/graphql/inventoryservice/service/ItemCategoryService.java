@@ -5,6 +5,7 @@ import com.springmicro.graphql.inventoryservice.exceptions.EntityNotFoundExcepti
 import com.springmicro.graphql.inventoryservice.mapper.ItemCategoryMapper;
 import com.springmicro.graphql.inventoryservice.model.ItemCategory;
 import com.springmicro.graphql.inventoryservice.repository.ItemCategoryRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public record ItemCategoryService(
         ItemCategoryRepository itemCategoryRepository,
-        ItemCategoryMapper itemCategoryMapper
-) {
+        ItemCategoryMapper itemCategoryMapper) {
 
     public List<ItemCategoryDTO> getItemCategories() {
         return itemCategoryRepository.findAll().stream()
