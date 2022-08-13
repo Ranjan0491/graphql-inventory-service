@@ -47,6 +47,8 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -72,6 +74,7 @@
 			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>graphql-webclient</artifactId>
 			<version>1.0.0</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.graphql-java-kickstart</groupId>

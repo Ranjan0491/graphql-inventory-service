@@ -1,0 +1,6 @@
+query {
+    getAllItemCategories {
+        id
+        name
+    }
+}

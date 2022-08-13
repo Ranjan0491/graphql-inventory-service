@@ -22,3 +22,5 @@ spring:
 
 server:
   port: 5000
+  http2:
+    enabled: true
